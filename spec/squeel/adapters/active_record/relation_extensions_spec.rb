@@ -370,6 +370,12 @@ module Squeel
             people.first.id.should eq 1
           end
 
+          it 'falls back to Array#select behavior with a block made from symbol' do
+            people = Person.select(&:odd?)
+            people.should have(166).person
+            people.all?(&:odd?).should eq true
+          end
+
           it 'behaves as normal with standard parameters' do
             people = Person.select(:id)
             people.should have(332).people
